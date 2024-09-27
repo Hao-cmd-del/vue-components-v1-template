@@ -1,0 +1,11 @@
+:root {
+  --text-color: #333;
+  --bg1: #c7ffdd;
+  --bg2: #c7ffdd;
+}
+/* 暗色主题 */
+html[data-theme="dark"] {
+  --text-color: #fff;
+  --bg1: #333;
+  --bg2: #333;
+}
