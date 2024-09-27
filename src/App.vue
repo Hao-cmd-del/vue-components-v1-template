@@ -1,15 +1,16 @@
 <script setup>
 import useTheme from "@/utils/useTheme.js";
 const { theme } = useTheme();
-// 切换主题
-const changeTheme = () => {
-  theme.value = theme.value == "light" ? "dark" : "light";
-};
 </script>
 
 <template>
   <div class="app">
-    <h1 @click="changeTheme" class="theme">点击切换主题</h1>
+    <!-- 下拉栏 -->
+    <select v-model="theme" class="theme-select">
+      <option value="dark">暗色</option>
+      <option value="light">亮色</option>
+      <option value="OS">跟随系统</option>
+    </select>
     <span @click="$router.push('/')">首页</span>
     <span @click="$router.push('/about')">关于</span>
     <span @click="$router.push('/contact')">内容</span>
@@ -21,9 +22,10 @@ const changeTheme = () => {
 <style scoped>
 .app {
   background-color: var(--bg1);
-  min-height: 100vh;
+  min-height: 80vh;
 }
-.theme {
+.theme-select {
+  padding: 5px 20px;
   cursor: pointer;
 }
 </style>
