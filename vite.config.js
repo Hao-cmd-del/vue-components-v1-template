@@ -42,6 +42,7 @@ export default (({ command, mode }) => {
       }
     },
     server: {
+      // host: '0.0.0.0', // 设置主机地址
       proxy: {
         '/api': {
           target: PropxUrl,
