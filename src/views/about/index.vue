@@ -1,18 +1,15 @@
 <template>
-  <div class="container">
-    关于我们
+  <div style="width: 500px">
+    <ElementFormPlus
+      :ref="ElementFormPlus"
+      :formList="formList"
+    ></ElementFormPlus>
   </div>
 </template>
-<script>
-import { reactive, toRefs, onBeforeMount, onMounted } from 'vue'
-export default {
-  name: 'App',
-  setup () {
-
-  },
-}
-
+<script setup>
+import ElementFormPlus from "@/components/ElementFormPlus/index.vue";
+import { ref } from "vue";
+import { formList } from "@/views/about/formConfig.js";
 </script>
 <style lang="scss" scoped>
-
 </style>

@@ -5,6 +5,8 @@ const { theme } = useTheme();
 
 <template>
   <div class="app">
+    <el-button></el-button>
+
     <!-- 下拉栏 -->
     <div style="display: flex; align-items: center; margin-bottom: 20px">
       <h2>主题切换</h2>
@@ -15,7 +17,7 @@ const { theme } = useTheme();
       </select>
     </div>
     <span @click="$router.push('/')">首页</span>
-    <span @click="$router.push('/about')">关于</span>
+    <span @click="$router.push('/about')">表单</span>
     <span @click="$router.push('/contact')">内容</span>
     <span @click="$router.push('/user')">用户</span>
   </div>
