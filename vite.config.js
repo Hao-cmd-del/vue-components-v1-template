@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-
+// 自动导入模块
+import AutoImport from 'unplugin-auto-import/vite'
 
 
 // https://vitejs.dev/config/
@@ -9,7 +10,14 @@ export default (({ command, mode }) => {
   let PropxUrl = loadEnv(mode, process.cwd()).VITE_APP_API_URL
 
   return defineConfig({
-    plugins: [vue()],
+    plugins: [vue(), AutoImport({
+      imports: [
+        'vue',
+        'vue-router',
+      ],
+      dts: 'src/auto-imports.d.ts'
+    })
+    ],
     build: {
       rollupOptions: {
         output: {
