@@ -5,7 +5,7 @@
       ref="ruleFormRef"
       :style="`max-width:${formList.formConfig.formStyle.width}`"
       :model="formList.formData"
-      :rules="formList.FormRules"
+      :rules="formList.formRules"
       :label-width="formList.formConfig.labelWidth"
       class="demo-ruleForm"
       :size="formSize"
@@ -25,7 +25,7 @@
       <el-form-item>
         <el-button
           :type="btnItem.type"
-          @click="btnItem.click"
+          @click="handleButtonClick(btnItem)"
           v-for="(btnItem, index) in formList.formConfig.btnList"
           :key="index"
           >{{ btnItem.text }}</el-button
@@ -43,7 +43,7 @@ import checkboxCom from "./model/checkBoxCom.vue";
 import switchCom from "./model/switchCom.vue";
 
 import { ref, defineProps } from "vue";
-
+const ruleFormRef = ref(null);
 const props = defineProps({
   formList: {
     type: Object,
@@ -54,7 +54,30 @@ const props = defineProps({
     default: false,
   },
 });
-
+/**
+ * 按钮点击事件
+ * @param {*} btnItem 按钮配置
+ */
+const handleButtonClick = async (btnItem) => {
+  if (btnItem.text === "提交" || btnItem.text === "新增") {
+    try {
+      //  校验
+      await ruleFormRef.value.validate((valid) => {
+        if (valid) {
+          //  提交
+          btnItem.click(props.formList.formData);
+        } else {
+          return false;
+        }
+      });
+    } catch (error) {
+      console.error("表单验证失败:", error);
+      return false;
+    }
+  } else {
+    btnItem.click(props.formList.formData, { ruleFormRef });
+  }
+};
 const formMap = {
   input: inputCom,
   select: selectCom,
@@ -63,6 +86,13 @@ const formMap = {
   checkbox: checkboxCom,
   switch: switchCom,
 };
+
+// 暴露方法给父组件
+defineExpose({
+  ruleFormRef,
+  validate: () => ruleFormRef.value?.validate(),
+  resetFields: () => ruleFormRef.value?.resetFields(),
+  clearValidate: (props) => ruleFormRef.value?.clearValidate(props),
+});
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

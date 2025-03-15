@@ -1,0 +1,244 @@
+// 定义主题变量
+:root {
+  --primary-color: #2b5dff;
+  --menu-bg: #ffffff;
+  --menu-text: #64748b;
+  --menu-active: #f8fafc;
+  --menu-hover: #f1f5f9;
+  --header-bg: #ffffff;
+  --main-bg: #f8fafc;
+}
+
+.layout-container {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  background-color: var(--main-bg);
+
+  .el-container {
+    width: 100%;
+    height: 100%;
+
+    .aside {
+      width: 250px !important;
+      height: 100%;
+      background: var(--menu-bg);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 2;
+
+      // Logo区域样式
+      .logo {
+        box-sizing: border-box;
+        height: 70px;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border-bottom: 1px solid #f1f5f9;
+
+        h1 {
+          font-size: 22px;
+          font-weight: 700;
+          color: #110a57;
+        }
+        img {
+          width: 32px;
+          height: 32px;
+          margin-right: 12px;
+        }
+      }
+
+      // 菜单样式覆盖
+      :deep(.el-menu) {
+        border: none;
+        background: transparent;
+        padding: 12px;
+        .el-menu-item,
+        .el-sub-menu__title {
+          height: 48px;
+          line-height: 48px;
+          border-radius: 12px;
+          margin: 4px 0;
+          color: var(--menu-text);
+          font-weight: 500;
+          transition: all 0.3s;
+
+          &:hover {
+            color: var(--primary-color);
+            background: var(--menu-hover);
+          }
+
+          &.is-active {
+            color: var(--primary-color);
+            background: var(--menu-active);
+            font-weight: 600;
+
+            &::before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 4px;
+              height: 24px;
+              background: var(--primary-color);
+              border-radius: 0 4px 4px 0;
+            }
+          }
+
+          i {
+            margin-right: 12px;
+            font-size: 18px;
+            color: inherit;
+          }
+        }
+
+        // 子菜单样式
+        .el-sub-menu {
+          &.is-active {
+            .el-sub-menu__title {
+              color: var(--primary-color);
+              font-weight: 600;
+            }
+          }
+
+          .el-menu--inline {
+            padding-left: 8px;
+
+            .el-menu-item {
+              height: 40px;
+              line-height: 40px;
+
+              &.is-active::before {
+                height: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .header {
+      height: 70px !important;
+      padding: 0 32px;
+      background: var(--header-bg);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+
+      .breadcrumb {
+        font-size: 14px;
+        font-weight: 500;
+
+        :deep(.el-breadcrumb__item) {
+          .el-breadcrumb__inner {
+            color: #666;
+            &:hover {
+              color: var(--primary-color);
+            }
+          }
+        }
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        .notice-badge {
+          cursor: pointer;
+          .el-icon {
+            font-size: 20px;
+            color: #666;
+            transition: all 0.3s;
+            &:hover {
+              color: var(--primary-color);
+            }
+          }
+        }
+
+        .avatar {
+          width: 38px;
+          height: 38px;
+          border-radius: 12px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          cursor: pointer;
+          transition: transform 0.3s;
+
+          &:hover {
+            transform: translateY(-2px);
+          }
+        }
+
+        .username {
+          font-size: 15px;
+          font-weight: 500;
+          color: #333;
+        }
+      }
+    }
+
+    .main {
+      padding: 24px;
+      background-color: var(--main-bg);
+
+      .content-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        border: 1px solid #f1f5f9;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        .title {
+          font-size: 20px;
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 24px;
+        }
+        &:hover {
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+      }
+    }
+  }
+}
+
+// 优化过渡动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+// 响应式优化
+@media screen and (max-width: 768px) {
+  .layout-container {
+    .aside {
+      position: fixed;
+      z-index: 1000;
+      transform: translateX(-250px);
+
+      &.expanded {
+        transform: translateX(0);
+      }
+    }
+
+    .header {
+      padding: 0 16px;
+    }
+
+    .main {
+      padding: 16px;
+    }
+  }
+}

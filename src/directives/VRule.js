@@ -1,4 +1,6 @@
-// 权限按钮
+/**
+ * 权限按钮
+ */
 
 // mock后台返回数据
 const permissionList = [

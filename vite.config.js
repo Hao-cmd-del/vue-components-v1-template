@@ -21,12 +21,16 @@ export default (({ command, mode }) => {
     build: {
       rollupOptions: {
         output: {
+          // 入口文件输出的命名模式
           entryFileNames: 'js/[name]-[hash].js',
+          // 代码分割后的chunk文件命名模式
           chunkFileNames: 'js/[name]-[hash].js',
+          // 根据不同资源类型自定义输出路径和文件名
           assetFileNames(assetInfo) {
             if (assetInfo.name.endsWith('.css')) {
               return 'css/[name]-[hash].css'
             }
+            // 定义图片文件扩展名列表
             const imgExit = [
               '.png',
               '.jpg',
@@ -35,20 +39,23 @@ export default (({ command, mode }) => {
               '.ico',
               '.svg'
             ]
+            // 图片文件放入imgs目录
             if (imgExit.some(ext => assetInfo.name.endsWith(imgExit))) {
               return 'imgs/[name]-[hash].[ext]'
             }
+            // 其他资源文件放入assets目录
             return 'assets/[name]-[hash].[ext]'
           }
         }
       }
     },
-    // 配置@
+    // 配置@别名
     resolve: {
       alias: {
         '@': '/src'
       }
     },
+    // 配置代理
     server: {
       // host: '0.0.0.0', // 设置主机地址
       proxy: {
