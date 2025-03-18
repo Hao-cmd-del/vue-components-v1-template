@@ -18,7 +18,7 @@ export const VRule = (el, bind) => {
     const { value } = bind; // 获取权限
 
     const userId = localStorage.getItem("userId"); // 获取用户id
-    if (permissionList.includes(userId + ":" + value)) {
+    if (permissionList.includes(`${userId }:${ value}`)) {
         return;
     } else {
         // el.style.display = "none";

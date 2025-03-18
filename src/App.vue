@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+console.log(666);
+</script>
 
 <template>
   <div class="app">

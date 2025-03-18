@@ -71,7 +71,6 @@ const emit = defineEmits(["update:modelValue"]);
 const FILE_URL = "/file/uploadFile";
 const fileList = ref([]);
 const handleRemove = (uploadFile, uploadFiles) => {
-  console.log(uploadFile, uploadFiles);
   handleEmit();
 };
 const handleExceed = () => {
@@ -136,13 +135,11 @@ const handleEmit = () => {
     } else {
       value = value = imageUrl.value;
     }
-    console.log(value);
     emit("update:modelValue", value);
   });
 };
 const imageUrl = ref("");
 const handleSuccess = (response, file, fileList) => {
-  console.log("handleSuccess:", response, file, fileList);
   if (props.limit == 1) {
     imageUrl.value = response.entity.fileUrl;
     handleEmit();

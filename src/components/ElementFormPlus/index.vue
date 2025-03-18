@@ -71,7 +71,6 @@ const handleButtonClick = async (btnItem) => {
         }
       });
     } catch (error) {
-      console.error("表单验证失败:", error);
       return false;
     }
   } else {

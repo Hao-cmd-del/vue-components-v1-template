@@ -1,37 +1,176 @@
-# vue-components-v1-template
+# Vue3 Admin Template
 
-#### 介绍
-一些组件模板、hooks等
+一个基于 Vue3、Element Plus 和 Vite 的现代化后台管理系统模板。
 
-#### 软件架构
-软件架构说明
+## 特性
 
+- 🚀 使用 Vue3 + Vite 构建，快速的开发体验
+- 📦 基于 Element Plus UI 框架
+- 🎨 可配置的主题和布局
+- 📱 响应式设计，支持移动端
+- 🔐 内置权限管理
+- 🧩 组件自动注册
+- 📝 自动生成路由配置
+- 🎯 封装了常用的表单组件
 
-#### 安装教程
+## 技术栈
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- Vue3
+- Vite
+- Element Plus
+- Vue Router
+- Pinia
+- Sass
+- ESLint
+- Prettier
 
-#### 使用说明
+## 项目结构
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+```bash
+├── src/
+│   ├── assets/          # 静态资源
+│   ├── components/      # 公共组件
+│   ├── layout/         # 布局组件
+│   ├── router/         # 路由配置
+│   ├── store/          # 状态管理
+│   ├── styles/         # 全局样式
+│   ├── utils/          # 工具函数
+│   └── views/          # 页面组件
+├── public/             # 公共资源
+├── .env               # 环境变量
+├── vite.config.js     # Vite 配置
+└── package.json       # 项目依赖
+```
 
-#### 参与贡献
+## 快速开始
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+### 安装依赖
 
+```bash
+npm install
+# 或
+yarn install
+```
 
-#### 特技
+### 开发环境运行
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+```bash
+npm run dev
+# 或
+yarn dev
+```
+
+### 生产环境构建
+
+```bash
+npm run build
+# 或
+yarn build
+```
+
+## 功能特性
+
+### 自动路由生成
+
+系统会自动扫描 `views` 目录下的组件，根据目录结构生成路由配置：
+
+```javascript
+// 示例目录结构
+views/
+  ├── dashboard/
+  │   ├── index.vue
+  │   └── page.js
+  └── system/
+      ├── index.vue
+      ├── page.js
+      └── user/
+          ├── index.vue
+          └── page.js
+```
+
+### 表单组件
+
+内置了多种常用的表单组件，支持配置化使用：
+
+- Input 输入框
+- Select 选择器
+- DateTimePicker 日期时间选择器
+- Radio 单选框
+- Checkbox 多选框
+- Switch 开关
+
+使用示例：
+
+```javascript
+const formConfig = {
+  formData: {
+    name: "",
+    type: "",
+  },
+  formDataType: [
+    {
+      type: "input",
+      label: "名称",
+      meta: {
+        prop: "name",
+        placeholder: "请输入名称",
+      },
+    },
+  ],
+};
+```
+
+### 布局组件
+
+提供了灵活的布局配置：
+
+- 可配置的侧边栏
+- 响应式头部导航
+- 面包屑导航
+- 标签页导航
+- 页面切换动画
+
+## 主题定制
+
+支持自定义主题颜色和布局样式，通过修改 SCSS 变量实现：
+
+```scss
+:root {
+  --primary-color: #2b5dff;
+  --menu-bg: #1a1f37;
+  --header-bg: #ffffff;
+  --main-bg: #f8f9fa;
+}
+```
+
+## 开发指南
+
+### 新增页面
+
+1. 在 `views` 目录下创建页面组件
+2. 创建对应的 `page.js` 配置文件
+3. 系统会自动生成路由配置
+
+### 使用表单组件
+
+```vue
+<template>
+  <ElementFormPlus :formList="formConfig" />
+</template>
+
+<script setup>
+import { formConfig } from "./config";
+</script>
+```
+
+## 贡献指南
+
+1. Fork 本仓库
+2. 创建新的特性分支
+3. 提交您的更改
+4. 推送到分支
+5. 创建 Pull Request
+
+## 许可证
+
+[MIT](LICENSE)

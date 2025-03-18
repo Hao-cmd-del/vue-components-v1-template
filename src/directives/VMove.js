@@ -31,8 +31,8 @@ export const VMove = (el, bind) => {
             } else if (newTop > parentHeight - elHeight) {
                 newTop = parentHeight - elHeight;
             }
-            el.style.left = newLeft + 'px';
-            el.style.top = newTop + 'px';
+            el.style.left = `${newLeft }px`;
+            el.style.top = `${newTop }px`;
         };
         // 鼠标移动事件
         document.addEventListener('mousemove', onMouseMove)

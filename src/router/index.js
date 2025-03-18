@@ -26,7 +26,7 @@ function processRoutes(modules) {
 
     // 创建路由对象
     const route = {
-      path: "/" + pathSegments[pathSegments.length - 1] || "/",
+      path: `/${ pathSegments[pathSegments.length - 1]}` || "/",
       name,
       component: comMoudles[component],
       meta: {

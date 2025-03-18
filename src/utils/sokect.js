@@ -16,7 +16,7 @@ const socketService = {
         if (typeof WebSocket === "undefined") {
             alert("您的浏览器不支持socket");
         } else {
-            let path = process.env.VUE_APP_BASE_WS_URL + '/auctionWs' + option.username; // 请求路径
+            let path = `${process.env.VUE_APP_BASE_WS_URL }/auctionWs${ option.username}`; // 请求路径
             this.socket = new WebSocket(path);
             this.socket.onopen = this.open.bind(this);
             this.socket.onerror = this.error.bind(this);
