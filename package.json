@@ -15,6 +15,7 @@
     "@element-plus/icons-vue": "^2.3.1",
     "element-plus": "^2.8.4",
     "lodash": "^4.17.21",
+    "tesseract.js": "^6.0.0",
     "v-resize-hx": "^0.0.1",
     "vue": "^3.4.37",
     "vue-router": "^4.4.5"
