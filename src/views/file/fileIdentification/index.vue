@@ -10,18 +10,30 @@
         <div class="image-preview-container" v-else>
           <img :src="imageUrl" class="preview-image" />
           <div class="image-actions">
-            <el-button type="primary" @click="triggerUpload">重新上传</el-button>
+            <el-button type="primary" @click="triggerUpload"
+              >重新上传</el-button
+            >
             <el-button type="danger" @click="clearImage">清除图片</el-button>
           </div>
         </div>
-        <input type="file" ref="fileInput" @change="handleImageUpload" accept="image/*" style="display: none">
+        <input
+          type="file"
+          ref="fileInput"
+          @change="handleImageUpload"
+          accept="image/*"
+          style="display: none"
+        />
       </div>
 
       <!-- 右侧识别结果区域 -->
       <div class="result-section">
         <div class="result-header">
           <h3>识别结果</h3>
-          <el-button type="primary" :loading="isRecognizing" @click="startRecognition">
+          <el-button
+            type="primary"
+            :loading="isRecognizing"
+            @click="startRecognition"
+          >
             开始识别
           </el-button>
         </div>
@@ -40,66 +52,68 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { Upload } from '@element-plus/icons-vue'
-import { createWorker } from 'tesseract.js'
-import { ElMessage } from 'element-plus'
+import { ref } from "vue";
+import { Upload } from "@element-plus/icons-vue";
+import { createWorker } from "tesseract.js";
+import { ElMessage } from "element-plus";
 
-const imageUrl = ref('')
-const recognizedText = ref('')
-const isRecognizing = ref(false)
-const fileInput = ref(null)
-let worker = null
+const imageUrl = ref("");
+const recognizedText = ref("");
+const isRecognizing = ref(false);
+const fileInput = ref(null);
+let worker = null;
 
 const triggerUpload = () => {
-  fileInput.value.click()
-}
+  fileInput.value.click();
+};
 
 const handleImageUpload = (e) => {
-  const file = e.target.files[0]
+  const file = e.target.files[0];
   if (file) {
-    imageUrl.value = URL.createObjectURL(file)
-    recognizedText.value = '' // 清除之前的识别结果
+    imageUrl.value = URL.createObjectURL(file);
+    recognizedText.value = ""; // 清除之前的识别结果
   }
-}
+};
 
 const startRecognition = async () => {
   if (!imageUrl.value) {
-    ElMessage.warning('请先上传图片')
-    return
+    ElMessage.warning("请先上传图片");
+    return;
   }
-  
-  isRecognizing.value = true
+
+  isRecognizing.value = true;
   try {
     if (!worker) {
-      worker = await createWorker('chi_sim')
+      worker = await createWorker("chi_sim");
     }
-    const { data: { text } } = await worker.recognize(imageUrl.value)
-    console.log(text,'识别结果');
-    recognizedText.value = text
+    const {
+      data: { text },
+    } = await worker.recognize(imageUrl.value);
+    console.log(text, "识别结果");
+    recognizedText.value = text;
   } catch (error) {
-    ElMessage.error('识别失败，请重试')
-    console.error(error)
+    ElMessage.error("识别失败，请重试");
+    console.error(error);
   } finally {
-    isRecognizing.value = false
+    isRecognizing.value = false;
   }
-}
+};
 
 const clearImage = () => {
-  imageUrl.value = ''
-  recognizedText.value = ''
+  imageUrl.value = "";
+  recognizedText.value = "";
   // 重置 input 的值，确保能重复选择同一张图片
   if (fileInput.value) {
-    fileInput.value.value = ''
+    fileInput.value.value = "";
   }
-}
+};
 
 // 组件卸载时清理worker
 onBeforeUnmount(async () => {
   if (worker) {
-    await worker.terminate()
+    await worker.terminate();
   }
-})
+});
 </script>
 
 <style scoped>
@@ -114,7 +128,8 @@ onBeforeUnmount(async () => {
   height: calc(100vh - 100px);
 }
 
-.image-section, .result-section {
+.image-section,
+.result-section {
   flex: 1;
   background: #fff;
   border-radius: 8px;
