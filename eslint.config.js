@@ -51,6 +51,8 @@ export default [
       "vue/no-mutating-props": "off", // 不允许组件 prop的改变
       "vue/multi-word-component-names": "off", // 组件名称必须多单词
       camelcase: 2, //强制驼峰法命名
+      "no-else-return": 2, //如果if语句里面有return,后面不能跟else语句
+      "no-case-declarations": 2, //禁止在case或default子句中出现词法声明
     },
   },
 ];
