@@ -74,7 +74,11 @@ const routes = [
     meta: {
       name: "首页",
     },
-    redirect: "/home",
+    redirect: "/login",
+  },
+  {
+    path: "/login",
+    component: () => import("@/views/login/index.vue"),
   },
 ];
 
