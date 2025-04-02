@@ -3,25 +3,47 @@
     <div class="login-box">
       <div class="login-header">
         <img src="@/assets/logo.png" alt="标题logo" class="logo" />
-        <h2>注册标题</h2>
+        <h2>用户注册</h2>
       </div>
 
-      <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef">
+      <el-form
+        :model="registerForm"
+        :rules="registerRules"
+        ref="registerFormRef"
+      >
         <el-form-item prop="username">
           <el-input
-            v-model="loginForm.username"
+            v-model="registerForm.username"
             prefix-icon="User"
             placeholder="请输入用户名"
           />
         </el-form-item>
 
+        <el-form-item prop="phone">
+          <el-input
+            v-model="registerForm.phone"
+            prefix-icon="Phone"
+            placeholder="请输入手机号"
+          />
+        </el-form-item>
+
         <el-form-item prop="password">
           <el-input
-            v-model="loginForm.password"
+            v-model="registerForm.password"
             prefix-icon="Lock"
             type="password"
             placeholder="请输入密码"
-            @keyup.enter="handleLogin"
+            @keyup.enter="handleRegister"
+          />
+        </el-form-item>
+
+        <el-form-item prop="confirmPassword">
+          <el-input
+            v-model="registerForm.confirmPassword"
+            prefix-icon="Lock"
+            type="password"
+            placeholder="请确认密码"
+            @keyup.enter="handleRegister"
           />
         </el-form-item>
 
@@ -29,12 +51,16 @@
           <el-button
             type="primary"
             :loading="loading"
-            @click="handleLogin"
+            @click="handleRegister"
             class="login-button"
           >
-            登录
+            注册
           </el-button>
         </el-form-item>
+
+        <div class="login-link">
+          已有账号？<router-link to="/login">立即登录</router-link>
+        </div>
       </el-form>
     </div>
   </div>
@@ -44,38 +70,77 @@
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
-import { useUserStore } from "@/store";
+
 const router = useRouter();
 const loading = ref(false);
-const loginFormRef = ref(null);
-const userStore = useUserStore();
+const registerFormRef = ref(null);
 
-const loginForm = reactive({
+const registerForm = reactive({
   username: "",
+  phone: "",
   password: "",
+  confirmPassword: "",
 });
 
-const loginRules = {
-  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-  password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+const validatePass = (rule, value, callback) => {
+  if (value === "") {
+    callback(new Error("请输入密码"));
+  } else {
+    if (registerForm.confirmPassword !== "") {
+      registerFormRef.value?.validateField("confirmPassword");
+    }
+    callback();
+  }
 };
 
-const handleLogin = async () => {
-  if (!loginFormRef.value) return;
+const validatePass2 = (rule, value, callback) => {
+  if (value === "") {
+    callback(new Error("请再次输入密码"));
+  } else if (value !== registerForm.password) {
+    callback(new Error("两次输入密码不一致!"));
+  } else {
+    callback();
+  }
+};
+
+const registerRules = {
+  username: [
+    { required: true, message: "请输入用户名", trigger: "blur" },
+    { min: 3, max: 20, message: "长度在 3 到 20 个字符", trigger: "blur" },
+  ],
+  phone: [
+    { required: true, message: "请输入手机号", trigger: "blur" },
+    {
+      pattern: /^1[3-9]\d{9}$/,
+      message: "请输入正确的手机号",
+      trigger: "blur",
+    },
+  ],
+  password: [
+    { required: true, validator: validatePass, trigger: "blur" },
+    { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
+  ],
+  confirmPassword: [
+    { required: true, validator: validatePass2, trigger: "blur" },
+  ],
+};
+
+const handleRegister = async () => {
+  if (!registerFormRef.value) return;
 
   try {
     loading.value = true;
-    await loginFormRef.value.validate();
-    // TODO: 调用登录接口
-    ElMessage.success("登录成功");
-    router.push("/home");
+    await registerFormRef.value.validate();
+    // TODO: 调用注册接口
+    ElMessage.success("注册成功");
+    router.push("/login");
     return;
-    // const res = await login(loginForm);
+    // const res = await register(registerForm);
     // if (res.code === 200) {
-    //   userStore.setUser(res.result.userInfo);
-    //   userStore.setToken(res.result.token);
+    //   ElMessage.success("注册成功");
+    //   router.push("/login");
     // } else {
-    //   ElMessage.error("登录失败");
+    //   ElMessage.error(res.message || "注册失败");
     // }
   } catch (error) {
     console.error(error);
@@ -118,6 +183,21 @@ const handleLogin = async () => {
 
     .login-button {
       width: 100%;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 16px;
+      color: #606266;
+
+      a {
+        color: #409eff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
