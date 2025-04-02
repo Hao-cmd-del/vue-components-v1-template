@@ -72,6 +72,11 @@ const userInfo = computed(() => userStore.user);
 const handleLogout = () => {
   userStore.logout();
 };
+
+// 修改密码
+const handleChangePassword = () => {
+  console.log("修改密码");
+};
 </script>
 
 <style lang="scss">

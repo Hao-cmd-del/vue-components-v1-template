@@ -76,7 +76,7 @@ const routes = [
     path: "/",
     component: Layout,
     children: processRoutes(pagesMoudles),
-    redirect: "/login",
+    redirect: processRoutes(pagesMoudles)[0].path,
   },
 ];
 
