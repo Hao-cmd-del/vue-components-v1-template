@@ -74,7 +74,7 @@ const routes = [
     meta: {
       name: "首页",
     },
-    redirect: "/login",
+    redirect: processRoutes(pagesMoudles)[0].path,
   },
   {
     path: "/login",
