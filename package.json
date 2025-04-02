@@ -16,6 +16,8 @@
     "axios": "^1.8.4",
     "element-plus": "^2.8.4",
     "lodash": "^4.17.21",
+    "pinia": "^3.0.1",
+    "pinia-plugin-persistedstate": "^4.2.0",
     "tesseract.js": "^6.0.0",
     "v-resize-hx": "^0.0.1",
     "vue": "^3.4.37",
