@@ -1,52 +1,48 @@
 <template>
   <div class="layout-container">
     <el-container>
-      <el-aside width="200px" class="aside">
-        <div class="logo">
-          <img src="@/assets/logo.png" alt="logo" />
-          <h1>后台管理系统</h1>
-        </div>
-        <layoutAside />
-      </el-aside>
       <el-container>
-        <el-header class="header">
-          <div class="breadcrumb">
-            <el-breadcrumb separator="/">
-              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>
-                <router-link :to="route.path">
-                  {{ route.meta.name }}
-                </router-link>
-              </el-breadcrumb-item>
-            </el-breadcrumb>
-          </div>
-          <div class="user-info">
-            <el-badge :value="3" class="notice-badge">
-              <el-icon><Bell /></el-icon>
-            </el-badge>
-            <el-avatar class="avatar" :size="32" src="user-avatar.jpg" />
-            <span class="username">管理员</span>
+        <el-header class="header" v-if="!isShow">
+          <div class="header-content">
+            <div class="breadcrumb"></div>
+            <div class="user-info">
+              <!-- 登录、注册 -->
+              <el-button type="primary" plain @click="handleLogin">登录</el-button>
+              <el-button type="primary" @click="handleRegister">注册</el-button>
+            </div>
           </div>
         </el-header>
         <el-main class="main">
           <div class="content-card">
             <!-- Component 是当前路由匹配到的组件 -->
             <router-view v-slot="{ Component }">
-              <p class="title">{{ route.meta.name }}</p>
               <transition name="fade" mode="out-in">
                 <component :is="Component" />
               </transition>
             </router-view>
           </div>
         </el-main>
+        <el-footer class="footer" v-if="!isShow">
+          <Footer />
+        </el-footer oter>
       </el-container>
     </el-container>
   </div>
 </template>
 
 <script setup>
-import layoutAside from "@/layout/layout-aside/index.vue";
+import Footer from "@/layout/footer/index.vue";
+import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
+const router = useRouter();
+const isShow = computed(() => route.meta.isShow);
+
+const handleLogin = () => {
+  router.push("/login");
+};
+const handleRegister = () => {
+  router.push("/register");
+};
 </script>
 
 <style lang="scss">
