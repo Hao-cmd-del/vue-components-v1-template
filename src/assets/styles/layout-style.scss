@@ -7,19 +7,124 @@
   --menu-hover: #f1f5f9;
   --header-bg: #ffffff;
   --main-bg: #f8fafc;
-  --footer-height: 270px;
-  --header-height: 140px;
 }
 
 .layout-container {
+  width: 100%;
   height: 100vh;
   min-height: 100vh;
   background-color: var(--main-bg);
+
   .el-container {
     width: 100%;
     height: 100%;
+
+    .aside {
+      width: 250px !important;
+      height: 100%;
+      background: var(--menu-bg);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 2;
+
+      // Logo区域样式
+      .logo {
+        box-sizing: border-box;
+        height: 70px;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        background: transparent;
+        border-bottom: 1px solid #f1f5f9;
+
+        h1 {
+          font-size: 22px;
+          font-weight: 700;
+          color: #110a57;
+        }
+
+        img {
+          width: 32px;
+          height: 32px;
+          margin-right: 12px;
+        }
+      }
+
+      // 菜单样式覆盖
+      :deep(.el-menu) {
+        border: none;
+        background: transparent;
+        padding: 12px;
+
+        .el-menu-item,
+        .el-sub-menu__title {
+          height: 48px;
+          line-height: 48px;
+          border-radius: 12px;
+          margin: 4px 0;
+          color: var(--menu-text);
+          font-weight: 500;
+          transition: all 0.3s;
+
+          &:hover {
+            color: var(--primary-color);
+            background: var(--menu-hover);
+          }
+
+          &.is-active {
+            color: var(--primary-color);
+            background: var(--menu-active);
+            font-weight: 600;
+
+            &::before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 4px;
+              height: 24px;
+              background: var(--primary-color);
+              border-radius: 0 4px 4px 0;
+            }
+          }
+
+          i {
+            margin-right: 12px;
+            font-size: 18px;
+            color: inherit;
+          }
+        }
+
+        // 子菜单样式
+        .el-sub-menu {
+          &.is-active {
+            .el-sub-menu__title {
+              color: var(--primary-color);
+              font-weight: 600;
+            }
+          }
+
+          .el-menu--inline {
+            padding-left: 8px;
+
+            .el-menu-item {
+              height: 40px;
+              line-height: 40px;
+
+              &.is-active::before {
+                height: 16px;
+              }
+            }
+          }
+        }
+      }
+    }
+
     .header {
-      height: var(--header-height) !important;
+      height: 70px !important;
+      padding: 0 32px;
       background: var(--header-bg);
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.05);
@@ -28,13 +133,6 @@
       justify-content: space-between;
       position: relative;
       z-index: 1;
-      .header-content {
-        width: 1300px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
 
       .breadcrumb {
         font-size: 14px;
@@ -43,13 +141,14 @@
         :deep(.el-breadcrumb__item) {
           .el-breadcrumb__inner {
             color: #666;
+
             &:hover {
               color: var(--primary-color);
             }
           }
         }
       }
-
+     
       .user-info {
         display: flex;
         align-items: center;
@@ -61,6 +160,7 @@
             font-size: 20px;
             color: #666;
             transition: all 0.3s;
+
             &:hover {
               color: var(--primary-color);
             }
@@ -89,19 +189,27 @@
     }
 
     .main {
-      width: 1300px;
-      margin: 0 auto;
+      padding: 24px;
       background-color: var(--main-bg);
-      padding: 0;
-      overflow: unset; // 禁止溢出
-    }
-    .footer {
-      background-color: #1e0404;
-      padding: 0 !important;
-      width: 100%;
-      color: #fff;
-      width: 100%;
-      height: var(--footer-height);
+
+      .content-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        border: 1px solid #f1f5f9;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+
+        .title {
+          font-size: 20px;
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 24px;
+        }
+
+        &:hover {
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+      }
     }
   }
 }
@@ -133,6 +241,10 @@
 
     .header {
       padding: 0 16px;
+    }
+
+    .main {
+      padding: 16px;
     }
   }
 }

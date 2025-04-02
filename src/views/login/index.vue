@@ -3,7 +3,7 @@
     <div class="login-box">
       <div class="login-header">
         <img src="@/assets/logo.png" alt="标题logo" class="logo" />
-        <h2>登录标题</h2>
+        <h2>标题</h2>
       </div>
 
       <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef">
@@ -35,9 +35,6 @@
             登录
           </el-button>
         </el-form-item>
-        <div class="login-link">
-          没有账号？<router-link to="/register">立即注册</router-link>
-        </div>
       </el-form>
     </div>
   </div>
@@ -47,11 +44,12 @@
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
+// import { login } from "@/api";
 import { useUserStore } from "@/store";
 const router = useRouter();
 const loading = ref(false);
 const loginFormRef = ref(null);
-const userStore = useUserStore();
+// const userStore = useUserStore();
 
 const loginForm = reactive({
   username: "",
@@ -71,7 +69,7 @@ const handleLogin = async () => {
     await loginFormRef.value.validate();
     // TODO: 调用登录接口
     ElMessage.success("登录成功");
-    router.push("/home");
+    router.push("/fileIdentification");
     return;
     // const res = await login(loginForm);
     // if (res.code === 200) {
@@ -121,20 +119,6 @@ const handleLogin = async () => {
 
     .login-button {
       width: 100%;
-    }
-    .login-link {
-      text-align: center;
-      margin-top: 16px;
-      color: #606266;
-
-      a {
-        color: #409eff;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
     }
   }
 }

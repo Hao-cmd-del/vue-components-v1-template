@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Layout from "@/layout/index.vue";
+import { getToken } from "@/utils/token";
 // const routes = [];
 
 // 自动生成路由文件
@@ -68,17 +69,14 @@ console.log(processRoutes(pagesMoudles), "processRoutes");
 // 生成路由配置
 const routes = [
   {
+    path: "/login",
+    component: () => import("@/views/login/index.vue"),
+  },
+  {
     path: "/",
     component: Layout,
     children: processRoutes(pagesMoudles),
-    meta: {
-      name: "首页",
-    },
     redirect: "/login",
-  },
-  {
-    path: "/login",
-    component: () => import("@/views/login/index.vue"),
   },
 ];
 
@@ -89,5 +87,20 @@ export const router = createRouter({
   history: createWebHistory("/"),
   routes,
 });
+
+
+// router.beforeEach((to, from, next) => {
+//   let user = JSON.parse(localStorage.getItem("user"));
+
+//   if (to.path === "/login") {
+//     next();
+//   } else {
+//     if (!user || !user.token) {
+//       next({ path: "/login" });
+//     } else {
+//       next();
+//     }
+//   }
+// });
 
 export default router;

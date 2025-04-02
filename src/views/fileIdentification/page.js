@@ -1,6 +1,5 @@
 export default {
-  name: "注册",
+  name: "文件识别",
   icon: "Setting",
   menuOrder: 1,
-  isShow: true,
 };
