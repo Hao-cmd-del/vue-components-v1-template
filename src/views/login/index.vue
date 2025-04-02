@@ -3,7 +3,7 @@
     <div class="login-box">
       <div class="login-header">
         <img src="@/assets/logo.png" alt="医院logo" class="logo" />
-        <h2>医院体检中心管理系统</h2>
+        <h2>后台管理系统</h2>
       </div>
 
       <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef">
