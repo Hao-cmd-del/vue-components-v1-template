@@ -1,5 +1,5 @@
 export default {
-  name: "系统管理",
+  name: "文件识别",
   icon: "Setting",
   menuOrder: 1,
 };

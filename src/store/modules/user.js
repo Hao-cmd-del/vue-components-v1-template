@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import { ElMessage } from 'element-plus'
 export const useUserStore = defineStore('user', {
-    // 持久化
     persist: true,
     state: () => ({
         user: null,

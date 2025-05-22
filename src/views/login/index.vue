@@ -2,8 +2,8 @@
   <div class="login-container">
     <div class="login-box">
       <div class="login-header">
-        <img src="@/assets/logo.png" alt="医院logo" class="logo" />
-        <h2>后台管理系统</h2>
+        <img src="@/assets/logo.png" alt="标题logo" class="logo" />
+        <h2>标题</h2>
       </div>
 
       <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef">
@@ -44,11 +44,12 @@
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
+// import { login } from "@/api";
 import { useUserStore } from "@/store";
 const router = useRouter();
 const loading = ref(false);
 const loginFormRef = ref(null);
-const userStore = useUserStore();
+// const userStore = useUserStore();
 
 const loginForm = reactive({
   username: "",
@@ -67,17 +68,16 @@ const handleLogin = async () => {
     loading.value = true;
     await loginFormRef.value.validate();
     // TODO: 调用登录接口
+    ElMessage.success("登录成功");
+    router.push("/fileIdentification");
     return;
-    const res = await login(loginForm);
-    if (res.code === 200) {
-      userStore.setUser(res.result.userInfo);
-      userStore.setToken(res.result.token);
-
-      ElMessage.success("登录成功");
-      router.push("/user");
-    } else {
-      ElMessage.error("登录失败");
-    }
+    // const res = await login(loginForm);
+    // if (res.code === 200) {
+    //   userStore.setUser(res.result.userInfo);
+    //   userStore.setToken(res.result.token);
+    // } else {
+    //   ElMessage.error("登录失败");
+    // }
   } catch (error) {
     console.error(error);
   } finally {
